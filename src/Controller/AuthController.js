@@ -1,7 +1,23 @@
+const { User } = require('../database/Model')
+
 class AuthController {
     
-    login(req, res){
-        res.send('Auth Login');
+    async login(req, res){
+        
+        const { email, password } = req.body
+
+        const user = await User.findOne({ where: { email }});
+
+        if(!user) res.send('User not found');
+
+        if(!(await user.comparePassword(password))) res.send('Invalid password')
+
+        user.password = undefined;
+        
+        res.json({
+            user,
+            token: user.generateToken()
+        });
     }
 
     register(req, res){

@@ -1,16 +1,31 @@
+const { User } = require('../database/Model');
+
 class UserController {
 
-    create(req, res){
-        res.send('User Create')
+    async create(req, res){
+        const newUser = {
+            name: 'Felipe',
+            email: 'felipealanbl@gmail.com',
+            password: '123456',
+            active: 1
+        }
+
+        const user = await User.create(newUser);
+        res.send(user)
     }
 
-    getAll(req, res){
-        res.send('User GetAll')
+    async getAll(req, res){
+        const users = await User.findAll();
+
+        res.send(users)
     }
 
-    getById(req, res){
+    async getById(req, res){
         const { id } = req.params;
-        res.send('User getById. Id: ' + id)
+
+        const user = await User.findByPk(id)
+
+        res.send(user)
     }
 
     update(req, res){

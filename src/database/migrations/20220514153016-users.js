@@ -8,7 +8,7 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    return queryInterface.createTable('user', {
+    return queryInterface.createTable('User', {
       id: {
         type: Sequelize.DataTypes.INTEGER,
         autoIncrement: true,
@@ -41,8 +41,8 @@ module.exports = {
      * Add reverting commands here.
      *
      * Example:
-     * await queryInterface.dropTable('users');
+     * await queryInterface.dropTable('Users');
      */
-    return queryInterface.dropTable('user');
+    return queryInterface.dropTable('User');
   }
 };

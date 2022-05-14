@@ -5,21 +5,22 @@ module.exports = {
     "username": process.env.DB_USER,
     "password": process.env.DB_PASS,
     "database": process.env.DB_NAME,
-    "host": process.env.HOST,
+    "host": process.env.DB_HOST,
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "sqlite3"
+    "username": process.env.DB_USER,
+    "password": process.env.DB_PASS,
+    "database": process.env.DB_NAME,
+    "host": process.env.DB_HOST,
+    "dialect": "sqlite3",
+    "storage": './__tests__/database.'
   },
   "production": {
     "username": process.env.DB_USER,
     "password": process.env.DB_PASS,
     "database": process.env.DB_NAME,
-    "host": process.env.DB_NAME,
+    "host": process.env.DB_HOST,
     "dialect": "mysql"
   }
 }
