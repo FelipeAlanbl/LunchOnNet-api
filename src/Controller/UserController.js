@@ -1,21 +1,10 @@
-const { User } = require('../database/Model');
+const { User, Admin, Client, Owner } = require('../database/Model');
 
 class UserController {
 
-    async create(req, res){
-        const newUser = {
-            name: 'Felipe',
-            email: 'felipealanbl@gmail.com',
-            password: '123456',
-            active: 1
-        }
-
-        const user = await User.create(newUser);
-        res.send(user)
-    }
 
     async getAll(req, res){
-        const users = await User.findAll();
+        const users = await User.findAll({ include: [Admin, Client, Owner] });
 
         res.send(users)
     }
@@ -23,7 +12,7 @@ class UserController {
     async getById(req, res){
         const { id } = req.params;
 
-        const user = await User.findByPk(id)
+        const user = await User.findOne({include: [Admin, Client, Owner], where: { id }})
 
         res.send(user)
     }

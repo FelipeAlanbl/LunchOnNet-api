@@ -1,4 +1,4 @@
-const { User } = require('../database/Model')
+const { User, Admin, Client, Owner, Establishment } = require('../database/Model')
 
 class AuthController {
     
@@ -6,7 +6,7 @@ class AuthController {
         
         const { email, password } = req.body
 
-        const user = await User.findOne({ where: { email }});
+        const user = await User.findOne({ include:[ Admin, Client, {model: Owner, include: {Establishment}}], where: { email }});
 
         if(!user) res.send('User not found');
 

@@ -20,7 +20,12 @@ module.exports = (sequelize, DataTypes) => {
       },
       active: {
         type: DataTypes.INTEGER,
+        allowNull: false
       },
+      type: {
+        type: DataTypes.STRING,
+        allowNull: false
+      }
     },
     {
       freezeTableName: true,
@@ -35,6 +40,12 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   );
+
+  User.associate = models => {
+    User.hasOne(models.Client, { foreignKey: "idUser" });
+    User.hasOne(models.Admin, { foreignKey: "idUser" });
+    User.hasOne(models.Owner, { foreignKey: "idUser" });
+}
 
   User.prototype.comparePassword = function(password) {
     return bcrypt.compare(password, this.password);
