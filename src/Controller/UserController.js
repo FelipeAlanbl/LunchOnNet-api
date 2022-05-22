@@ -1,4 +1,5 @@
 const { User, Admin, Client, Owner } = require('../database/Model');
+const { Op } = require('sequelize');
 
 class UserController {
 
@@ -25,6 +26,17 @@ class UserController {
     delete(req, res){
         const { id } = req.params;
         res.send('User delete. Id: ' + id);
+    }
+
+    async totalUsers(req, res){
+
+        const count = await User.count({
+            where: {
+                type: {[Op.ne]: 'admin'}
+            }
+        });
+
+        res.json(count);
     }
 }
 

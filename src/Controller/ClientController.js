@@ -8,27 +8,19 @@ class ClientController {
         
         const transaction = await sequelize.transaction();
 
-        const newUser = {
-            name: 'Samara',
-            email: 'samarasimoes@email.com',
-            password: '123456',
-            active: 1,
-            type: 'client',
-            address: {
-                address: 'Rua Lago Dourado',
-                number: '381',
-                city: 'Paulo Afonso',
-                state: 'BA',
-                zipCode: '48601-320',
-                type: 'residencial'
+            const newUser = {
+                name: 'Samara',
+                email: 'samarasimoes@email.com',
+                password: '123456',
+                active: 1,
+                type: 'client'
             }
-        }
 
         const user = await User.create(newUser, { transaction });
 
-        const client = await Client.create({id_user: user.id}, { transaction });
+        await Client.create({id_user: user.id}, { transaction });
 
-        const address = await Address.create({...newUser.address, id_client: client.id}, {transaction});
+        //const address = await Address.create({...newUser.address, id_client: client.id}, {transaction});
 
         await transaction.commit()
 

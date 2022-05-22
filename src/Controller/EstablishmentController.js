@@ -32,8 +32,18 @@ class EstablishmentController {
         }
     }
 
-    async getByOwnerId(){
+    async getByOwnerId(req, res){
 
+        const {id} = req.params;
+
+        try {
+            const establishments = await Establishment.findAll({where: {id_owner: id}});
+
+            res.status(200).send(establishments);
+
+        } catch (err) {
+            res.status(500).send(err);
+        }
     }
 
 

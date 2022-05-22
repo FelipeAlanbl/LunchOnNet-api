@@ -15,14 +15,14 @@ class OwnerController {
 
             const user = await User.create(newUser, { transaction });
 
-            const owner = await Owner.create({id_user: user.id}, { transaction })
+            await Owner.create({id_user: user.id}, { transaction })
 
             transaction.commit();
 
             res.status(201).send();
             
         } catch (err) {
-            transaction.rollback();
+            await transaction.rollback();
 
             res.status(500).send()
         }
